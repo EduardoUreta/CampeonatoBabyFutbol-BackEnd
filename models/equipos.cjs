@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      const { Jugadores } = models;
+
+      this.hasMany(Jugadores);
     }
   }
   Equipos.init({
@@ -66,6 +68,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     capitan_id: {
       type: DataTypes.INTEGER,
+      allowNull: true
     },
     imagen: {
       type: DataTypes.STRING,

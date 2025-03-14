@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      const { Equipos } = models;
+      this.belongsTo(Equipos, {
+        foreignKey: 'EquipoId',
+        targetKey: 'id',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Jugadores.init({
@@ -60,9 +65,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: "https://w7.pngwing.com/pngs/467/752/png-transparent-computer-icons-encapsulated-postscript-soccer-player-avatar-child-face-hand-thumbnail.png"
     },
-    equipo_id: {
+    EquipoId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Equipos', 
         key: 'id',

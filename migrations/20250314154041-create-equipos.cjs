@@ -61,6 +61,7 @@ module.exports = {
       },
       capitan_id: {
         type: Sequelize.INTEGER,
+        allowNull: true
       },
       imagen: {
         type: Sequelize.STRING,

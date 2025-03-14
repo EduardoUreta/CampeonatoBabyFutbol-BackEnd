@@ -55,9 +55,9 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "https://w7.pngwing.com/pngs/467/752/png-transparent-computer-icons-encapsulated-postscript-soccer-player-avatar-child-face-hand-thumbnail.png"
       },
-      equipo_id: {
+      EquipoId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'Equipos', 
           key: 'id',

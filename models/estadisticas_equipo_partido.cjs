@@ -10,7 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      const { Partidos, Equipos } = models;
+
+      this.belongsTo(Partidos, {
+        foreignKey: 'partido_id',
+      });
+
+      this.belongsTo(Equipos, {
+        foreignKey: 'equipo_id',
+      });
     }
   }
   Estadisticas_Equipo_Partido.init({
