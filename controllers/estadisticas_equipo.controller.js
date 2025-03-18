@@ -17,7 +17,7 @@ export class EstadisticasController {
         const id = req.params.id;
         try {
             const estadistica = await Estadisticas_Equipo_Partido.findByPk(id);
-            if(!estadistica) return res.status(404).json({message: "Estadistica No Encontrado"});
+            if(!estadistica) return res.status(404).json({message: "Estadística No Encontrada"});
             return res.status(200).json(estadistica);
         } catch (error) {
             console.error(error);
@@ -29,7 +29,7 @@ export class EstadisticasController {
         const datosNuevaEstadistica = req.body;
         try {
             const nuevaEstadistica = await Estadisticas_Equipo_Partido.create(datosNuevaEstadistica);
-            return res.status(201).json({message: "Partido creado"});
+            return res.status(201).json({message: "Estadística creada"});
         } catch (error) {
             console.error(error);
             next(error);
@@ -41,7 +41,7 @@ export class EstadisticasController {
         const nuevosDatos = req.body;
         try {
             const estadistica = await Estadisticas_Equipo_Partido.findByPk(id);
-            if(!estadistica) return res.status(404).json({message: "Estadistica No Encontrado"});
+            if(!estadistica) return res.status(404).json({message: "Estadística No Encontrada"});
 
             await Estadisticas_Equipo_Partido.update(nuevosDatos, { where: {id}});
             return res.status(200).json({message: "Estadistica Actualizado"});
@@ -55,9 +55,9 @@ export class EstadisticasController {
         const id = req.params.id;
         try {
             const estadistica = await Estadisticas_Equipo_Partido.destroy({where: {id}});
-            if(!estadistica) return res.status(404).json({message: "Estadistica No Encontrad"});
+            if(!estadistica) return res.status(404).json({message: "Estadística No Encontrada"});
     
-            return res.status(200).json({message: "Estadistica eliminado"}); 
+            return res.status(200).json({message: "Estadística eliminado"}); 
         } catch (error) {
             console.error(error);
             next(error);

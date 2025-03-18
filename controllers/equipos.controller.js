@@ -56,7 +56,7 @@ export class EquiposController {
         const id = req.params.id;
         try {
             const equipo = await Equipos.destroy({where: {id}});
-            if(!equipo) return res.status(404).json({message: "Equipo No Encontrad"});
+            if(!equipo) return res.status(404).json({message: "Equipo No Encontrado"});
     
             return res.status(200).json({message: "Equipo eliminado"}); 
         } catch (error) {

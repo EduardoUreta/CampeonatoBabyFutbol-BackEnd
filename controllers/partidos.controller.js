@@ -55,7 +55,7 @@ export class PartidosController {
         const id = req.params.id;
         try {
             const partido = await Partidos.destroy({where: {id}});
-            if(!partido) return res.status(404).json({message: "Partido No Encontrad"});
+            if(!partido) return res.status(404).json({message: "Partido No Encontrado"});
     
             return res.status(200).json({message: "Partido eliminado"}); 
         } catch (error) {
