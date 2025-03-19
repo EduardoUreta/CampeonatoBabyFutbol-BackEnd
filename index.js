@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import express from "express";
 import { EquiposRoutes, EstadisticasRoutes, JugadoresRoutes, PartidosRoutes, SessionsRoutes, UsuariosRoutes } from "./routes/index.js";
 import { errorHandler } from "./middlewares/index.js";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
@@ -11,6 +12,12 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
+// CORS
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true, 
+}));
+  
 
 app.use("/api/jugador", JugadoresRoutes);
 app.use("/api/equipo", EquiposRoutes);

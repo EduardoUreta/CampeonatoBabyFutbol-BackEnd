@@ -27,7 +27,15 @@ export class EquiposController {
     };
 
     static crearEquipo = async(req, res, next) => {
-        const datosEquipo = req.body;
+        const datos = req.body;
+        let imagenURL = null;
+        if (req.file) {
+            imagenURL = `assets/img/${req.file.filename}`;
+        }
+        const datosEquipo = {
+            ...datos, 
+            imagen: imagenURL 
+        };
         try {
             const nuevoEquipo = await Equipos.create(datosEquipo);
             return res.status(201).json({message: "Equipo Creado"});

@@ -7,8 +7,6 @@ export class SessionsController {
 
     static login = async(req, res, next) => {
         const { correo, contrasena } = req.body;
-        console.log(correo, contrasena);
-        
         try {
             const usuario = await Usuarios.findOne({where: { correo: correo }});
             if(!usuario) throw new Error("Credenciales Inválidas", { cause: "INVALID_CREDENTIALS" });
@@ -19,7 +17,8 @@ export class SessionsController {
             const signature = CreateSignature({
                 _id: usuario.id,
                 email: usuario.email,
-                rol: usuario.rol
+                rol: usuario.rol,
+                nombre: usuario.nombre
             });
 
             return res.cookie('Bearer', signature).json({message: "Usuario logueado"});
