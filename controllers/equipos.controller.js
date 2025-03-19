@@ -1,4 +1,8 @@
 import * as db from "../models/index.cjs";
+import path from "path";
+import { __dirname } from "../utils/__dirname.js";
+import fs from "fs"
+
 const { Equipos } = db.default;
 
 export class EquiposController {
@@ -48,23 +52,51 @@ export class EquiposController {
     static actualizarEquipo = async(req, res, next) => {
         const id = req.params.id;
         const datosEquipo = req.body;
+    
         try {
             const equipo = await Equipos.findByPk(id);
-            if(!equipo) return res.status(404).json({message: "Equipo No Encontrado"});
+            if (!equipo) return res.status(404).json({ message: "Equipo No Encontrado" });
+    
+            if (equipo.imagen && req.file) {
+                const oldImagePath = path.join(__dirname, '..', 'public', equipo.imagen);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {
+                        console.error("Error eliminando la imagen antigua: ", err);
+                    } else {
+                        console.log("Imagen antigua eliminada");
+                    }
+                });
+            };
 
-            await Equipos.update(datosEquipo, { where: {id}} );
-            return res.status(200).json({message: "Equipo Actualizado"});
+            if (req.file) {
+                datosEquipo.imagen = `/assets/img/${req.file.filename}`; 
+            }
+    
+            await Equipos.update(datosEquipo, { where: { id } });
+            return res.status(200).json(equipo);
         } catch (error) {
             console.error(error);
             next(error);
-        };
+        }
     };
+    
 
     static eliminarEquipo = async(req, res, next) => {
         const id = req.params.id;
         try {
             const equipo = await Equipos.destroy({where: {id}});
             if(!equipo) return res.status(404).json({message: "Equipo No Encontrado"});
+
+            if (equipo.imagen && req.file) {
+                const oldImagePath = path.join(__dirname, '..', 'public', equipo.imagen);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {
+                        console.error("Error eliminando la imagen antigua: ", err);
+                    } else {
+                        console.log("Imagen antigua eliminada");
+                    }
+                });
+            };
     
             return res.status(200).json({message: "Equipo eliminado"}); 
         } catch (error) {

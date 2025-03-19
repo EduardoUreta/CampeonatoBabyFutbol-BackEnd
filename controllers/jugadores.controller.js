@@ -1,4 +1,7 @@
 import * as db from "../models/index.cjs";
+import path from "path";
+import { __dirname } from "../utils/__dirname.js";
+import fs from "fs"
 const { Jugadores } = db.default;
 
 export class JugadoresController {
@@ -42,9 +45,17 @@ export class JugadoresController {
     };
 
     static crearJugador = async(req, res, next) => {
-        const datosNuevoJugador = req.body;
+        const datos = req.body;
+        let imagenURL = null;
+        if (req.file) {
+            imagenURL = `assets/img/${req.file.filename}`;
+        }
+        const datosJugador = {
+            ...datos, 
+            imagen: imagenURL 
+        };
         try {
-            const nuevoJugador = await Jugadores.create(datosNuevoJugador);
+            const nuevoJugador = await Jugadores.create(datosJugador);
             return res.status(201).json({message: "Usuario creado"});
         } catch (error) {
             console.error(error);
@@ -59,8 +70,23 @@ export class JugadoresController {
             const jugador = await Jugadores.findByPk(id);
             if(!jugador) return res.status(404).json({message: "Jugador No Encontrado"});
 
+            if (jugador.imagen && req.file) {
+                const oldImagePath = path.join(__dirname, '..', 'public', jugador.imagen);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {
+                        console.error("Error eliminando la imagen antigua: ", err);
+                    } else {
+                        console.log("Imagen antigua eliminada");
+                    }
+                });
+            };
+
+            if (req.file) {
+                nuevosDatos.imagen = `/assets/img/${req.file.filename}`; 
+            }
+
             await Jugadores.update(nuevosDatos, { where: {id}});
-            return res.status(200).json({message: "Jugador Actualizado"});
+            return res.status(200).json(jugador);
         } catch (error) {
             console.error(error);
             next(error);
@@ -72,6 +98,17 @@ export class JugadoresController {
         try {
             const jugador = await Jugadores.destroy({where: {id}});
             if(!jugador) return res.status(404).json({message: "Jugador No Encontrad"});
+
+            if (jugador.imagen && req.file) {
+                const oldImagePath = path.join(__dirname, '..', 'public', jugador.imagen);
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {
+                        console.error("Error eliminando la imagen antigua: ", err);
+                    } else {
+                        console.log("Imagen antigua eliminada");
+                    }
+                });
+            };
     
             return res.status(200).json({message: "Jugador eliminado"}); 
         } catch (error) {
