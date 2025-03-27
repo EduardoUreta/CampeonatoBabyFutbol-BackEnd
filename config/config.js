@@ -1,7 +1,7 @@
 // Sequelize
-require('dotenv').config() 
+import 'dotenv/config'; 
 
-const envConfig = {
+export const envConfig = {
   "username": process.env.PGUSER,
   "password": process.env.PGPASSWORD,
   "database": process.env.PGDATABASE,
@@ -10,4 +10,3 @@ const envConfig = {
   JWT_SECRET: process.env.JWT_SECRET
 } 
 
-module.exports = envConfig

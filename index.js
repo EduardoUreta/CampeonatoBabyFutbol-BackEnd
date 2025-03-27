@@ -4,8 +4,8 @@ import { EquiposRoutes, EstadisticasRoutes, JugadoresRoutes, PartidosRoutes, Ses
 import { errorHandler } from "./middlewares/index.js";
 import cors from "cors";
 import path from "path";
-const { Sequelize } = require('sequelize');
-const { envConfig } = require('./config/config.cjs');
+import { Sequelize } from 'sequelize';
+import { envConfig } from './config.js';
 
 const app = express();
 const port = 3000;
