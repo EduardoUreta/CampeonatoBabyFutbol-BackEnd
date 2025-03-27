@@ -5,7 +5,7 @@ import { errorHandler } from "./middlewares/index.js";
 import cors from "cors";
 import path from "path";
 import { Sequelize } from 'sequelize';
-import { envConfig } from './config.js';
+import { envConfig } from './config/config.js';
 
 const app = express();
 const port = 3000;
