@@ -1,20 +1,19 @@
-// index.cjs (Cambio para CommonJS)
+'use strict';
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-
-const envConfig = require(__dirname + '/../config/config.js'); // Usamos require para cargar la configuración
-
+const config = require(__dirname + '/../config/config.cjs');
 const db = {};
-let sequelize;
 
-if (envConfig.use_env_variable) {
-  sequelize = new Sequelize(process.env[envConfig.use_env_variable], envConfig);
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(envConfig.database, envConfig.username, envConfig.password, envConfig);
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
