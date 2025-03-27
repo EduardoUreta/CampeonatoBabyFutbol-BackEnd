@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      const { Partidos, Equipos } = models;
+      const { Partidos, Equipos, Jugadores } = models;
 
       this.belongsTo(Partidos, {
         foreignKey: 'partido_id',
@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsTo(Equipos, {
         foreignKey: 'equipo_id',
+      });
+
+      this.belongsTo(Jugadores, {
+        foreignKey: 'jugador_id'
       });
     }
   }
@@ -33,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     goles: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
       validate: {
         min: 0
       }
@@ -52,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
         min: 0
       },
       defaultValue: 0
+    },
+    jugador_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,

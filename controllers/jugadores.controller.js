@@ -83,6 +83,10 @@ export class JugadoresController {
 
             if (req.file) {
                 nuevosDatos.imagen = `/assets/img/${req.file.filename}`; 
+            };
+
+            if(nuevosDatos.goles){
+                console.log('Vienen goles');
             }
 
             await Jugadores.update(nuevosDatos, { where: {id}});

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     edad: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       validate: {
         min: 18,
         max: 60
@@ -72,6 +72,15 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Equipos', 
         key: 'id',
       }, 
+    },
+    goles: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    instagram: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,
