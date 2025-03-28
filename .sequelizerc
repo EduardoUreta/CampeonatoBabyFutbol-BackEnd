@@ -1,5 +1,5 @@
 module.exports = {
-  config: './config/config.cjs',
+  config: './config/config.js',
   'migrations-path': './migrations',
   'models-path': './models',
 };
