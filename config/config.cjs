@@ -2,12 +2,13 @@ require('dotenv').config();
 
 const envConfig = process.env.DATABASE_URL
   ? {
-      url: process.env.DATABASE_URL, // Para producción (Railway + Neon.tech)
+      database: process.env.DATABASE_URL, // Sequelize usa "database" en lugar de "url"
+      JWT_SECRET: process.env.JWT_SECRET,
       dialect: "postgres",
       dialectOptions: {
         ssl: {
           require: true,
-          rejectUnauthorized: false, // Necesario para conexiones SSL en Neon.tech
+          rejectUnauthorized: false, // Para Neon.tech
         },
       },
     }
@@ -23,8 +24,3 @@ const envConfig = process.env.DATABASE_URL
 module.exports = envConfig;
 
 
-// DB_HOST=localhost
-// DB_DATABASE=Campeonato_BabyFutbol
-// DB_USER=postgres
-// DB_PASSWORD=caca1234
-// JWT_SECRET=aksfj9t5yntscmao@!
