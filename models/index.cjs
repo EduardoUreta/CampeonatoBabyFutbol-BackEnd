@@ -16,6 +16,10 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+sequelize.authenticate()
+  .then(() => console.log('Conectado a PostgreSQL en Neon.tech'))
+  .catch(err => console.error('Error de conexión:', err));
+
 fs
   .readdirSync(__dirname)
   .filter(file => {

@@ -17,6 +17,7 @@ const envConfig = process.env.DATABASE_URL
       database: process.env.DB_DATABASE,
       host: process.env.DB_HOST,
       dialect: "postgres",
+      JWT_SECRET: process.env.JWT_SECRET
     };
 
 module.exports = envConfig;
