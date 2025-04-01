@@ -2,8 +2,7 @@ require('dotenv').config();
 
 const envConfig = process.env.DATABASE_URL
   ? {
-      database: process.env.DATABASE_URL, // Sequelize usa "database" en lugar de "url"
-      JWT_SECRET: process.env.JWT_SECRET,
+      url: process.env.DATABASE_URL, // Sequelize usará esta URL completa para conectarse
       dialect: "postgres",
       dialectOptions: {
         ssl: {
@@ -11,6 +10,7 @@ const envConfig = process.env.DATABASE_URL
           rejectUnauthorized: false, // Para Neon.tech
         },
       },
+      JWT_SECRET: process.env.JWT_SECRET
     }
   : {
       username: process.env.DB_USER,
@@ -22,5 +22,6 @@ const envConfig = process.env.DATABASE_URL
     };
 
 module.exports = envConfig;
+
 
 
