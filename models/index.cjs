@@ -6,15 +6,15 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.cjs'); 
+const envConfig = require(__dirname + '/../config/config.cjs'); 
 const db = {};
 
 let sequelize;
 
-if (config.url) {
-  sequelize = new Sequelize(config.url, config); 
+if (envConfig.url) {
+  sequelize = new Sequelize(envConfig.url, envConfig); 
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(envConfig.database, envConfig.username, envConfig.password, envConfig);
 }
 
 sequelize.authenticate()
