@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true}));
 
 // CORS
 app.use(cors({
-    origin: ['https://campeonatobabyfutbol-backend-production.up.railway.app/', 'http://campeonatobabyhoy.xyz'],
+    origin: ['https://campeonatobabyfutbol-backend-production.up.railway.app/', 'https://campeonatobabyhoy.xyz'],
     credentials: true, 
 }));
 
