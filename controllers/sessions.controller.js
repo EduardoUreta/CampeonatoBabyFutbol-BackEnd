@@ -21,7 +21,13 @@ export class SessionsController {
                 nombre: usuario.nombre
             });
 
-            return res.cookie('Bearer', signature).json({message: "Usuario logueado"});
+            return res.cookie('Bearer', signature, {
+                httpOnly: true,     // Evita acceso desde JavaScript en el frontend
+                secure: true,       // Requiere HTTPS (asegúrate de usar HTTPS en .xyz)
+                sameSite: 'None',   // Permite el uso en dominios distintos
+                path: '/',          // Aplica la cookie a toda la aplicación
+            }).json({message: "Usuario logueado"});
+            
 
         } catch (error) {
             next(error);
