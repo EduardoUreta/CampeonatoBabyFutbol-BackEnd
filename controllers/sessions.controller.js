@@ -38,7 +38,12 @@ export class SessionsController {
 
     static logout = async(req, res, next) => {
         if (req.user) {
-            res.clearCookie('Bearer', { path: '/' });
+            res.clearCookie('Bearer', {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'None',
+                path: '/',
+            });
             return res.json({ message: "Sesión Cerrada" });
         }
         return res.json({message: "No estás logueado para cerrar sesión"})
