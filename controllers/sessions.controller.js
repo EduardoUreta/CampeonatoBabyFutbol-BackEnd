@@ -28,7 +28,6 @@ export class SessionsController {
                 path: '/',          // Aplica la cookie a toda la aplicación
             }).json({message: "Usuario logueado"});
             
-
         } catch (error) {
             next(error);
         };
