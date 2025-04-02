@@ -13,13 +13,13 @@ let sequelize;
 
 if (envConfig.url) {
   sequelize = new Sequelize(envConfig.url, envConfig); 
+  sequelize.authenticate()
+    .then(() => console.log('Conectado a PostgreSQL en Neon.tech'))
+    .catch(err => console.error('Error de conexión:', err));
 } else {
   sequelize = new Sequelize(envConfig.database, envConfig.username, envConfig.password, envConfig);
 }
 
-sequelize.authenticate()
-  .then(() => console.log('Conectado a PostgreSQL en Neon.tech'))
-  .catch(err => console.error('Error de conexión:', err));
 
 fs
   .readdirSync(__dirname)
