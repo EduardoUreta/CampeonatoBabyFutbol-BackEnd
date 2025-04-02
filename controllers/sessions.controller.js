@@ -23,10 +23,13 @@ export class SessionsController {
 
             return res.cookie('Bearer', signature, {
                 httpOnly: true,     // Evita acceso desde JavaScript en el frontend
-                secure: true,       // Requiere HTTPS (asegúrate de usar HTTPS en .xyz)
+                secure: true,       // Requiere HTTPS
                 sameSite: 'None',   // Permite el uso en dominios distintos
                 path: '/',          // Aplica la cookie a toda la aplicación
-            }).json({message: "Usuario logueado"});
+            }).json({
+                message: "Usuario logueado",
+                token: signature
+            });
             
         } catch (error) {
             next(error);
