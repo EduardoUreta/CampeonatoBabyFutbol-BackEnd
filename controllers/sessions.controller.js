@@ -16,7 +16,7 @@ export class SessionsController {
 
             const signature = CreateSignature({
                 _id: usuario.id,
-                email: usuario.email,
+                email: usuario.correo,
                 rol: usuario.rol,
                 nombre: usuario.nombre
             });
