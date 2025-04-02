@@ -56,6 +56,13 @@ export class EquiposController {
         try {
             const equipo = await Equipos.findByPk(id);
             if (!equipo) return res.status(404).json({ message: "Equipo No Encontrado" });
+
+            if (datosEquipo.goles_favor) {
+                datosEquipo.goles_favor += equipo.goles_favor; 
+            }
+            if (datosEquipo.goles_contra) {
+                datosEquipo.goles_contra += equipo.goles_contra;
+            }
     
             if (equipo.imagen && req.file) {
                 const oldImagePath = path.join(__dirname, '..', 'public', equipo.imagen);
